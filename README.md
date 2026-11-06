@@ -1,52 +1,50 @@
-# 📈 FinML-WalkForward: Financial Machine Learning & Backtesting Framework
+# 📈 FinML-WalkForward: Financial Machine Learning & Walk-Forward Backtesting
 
-Un'infrastruttura in Python guidata dal Machine Learning per il **Walk-Forward Backtesting** su serie temporali finanziarie. Il framework integra la costruzione e pulizia automatizzata di feature tecniche avanzate (RSI, Bande di Bollinger %B) per la simulazione e validazione realistica di strategie di trading quantitative.
-
----
-
-## 🎯 Obiettivi del Progetto
-
-Nei mercati finanziari, il classici metodi di cross-validation rischiano di introdurre **look-ahead bias** e **data leakage**. Questo progetto implementa un approccio a finestra mobile (**Walk-Forward Testing**) per addestrare e testare i modelli di ML esclusivamente su dati storici antecedenti al periodo di simulazione.
+A Python-based Machine Learning framework for **Walk-Forward Backtesting** on financial time-series data. This repository features optimized feature engineering for key technical indicators (RSI, Bollinger Bands %B) to ensure realistic, leakage-free trading strategy simulations.
 
 ---
 
-## 🛠️ Caratteristiche Principali
+## 🎯 Project Overview
 
-- **Feature Engineering Ottimizzato:**
-  - **Relative Strength Index (RSI):** Misurazione vettoriale del momentum a $N$ periodi esente da problemi di precedenza degli operatori o indicizzazione errata.
-  - **Bollinger Bands %B:** Indicatore di volatilità normalizzato ($0 - 1$) per tracciare la posizione relativa del prezzo rispetto alle bande di Bollinger.
-- **Data Cleaning & Pipeline Integration:**
-  - Isolamento corretto delle serie temporali singole per evitare inquinamento da colonne ridondanti.
-  - Rimozione automatica delle finestre iniziali incompletali (`NaN`) mantenendo un allineamento temporale stringente.
-- **Walk-Forward Validation Engine:** Simulazione realistica che aggiorna periodicamente il modello su finestre temporali scorrevoli.
+Standard cross-validation techniques often introduce **look-ahead bias** and **data leakage** when applied to financial time series. This framework implements a rolling window (**Walk-Forward Testing**) approach to train and validate machine learning models exclusively on historical data prior to each test period.
 
 ---
 
-## 📐 Indicatori Implementati
+## 🛠️ Key Features
 
-### 1. RSI (Relative Strength Index)
-L'RSI misura la velocità e l'entità dei movimenti direzionali dei prezzi:
-$$RS = \frac{\text{EMA}(\text{Guadagni})}{\text{EMA}(\text{Perdite})}$$
-$$\text{RSI} = 100 - \left( \frac{100}{1 + RS} \right)$$
+- **Vectorized Feature Engineering:**
+  - **Relative Strength Index (RSI):** Multi-period price momentum measurement using vectorized Pandas operations.
+  - **Bollinger Bands %B:** Normalized volatility indicator ($0 - 1$) tracking price location relative to upper/lower Bollinger Bands.
+- **Robust Data Pipeline:**
+  - Explicit single-series processing to avoid dataframe-level scale distortions.
+  - Automated dynamic cleaning of window-initialization null values (`NaN`) to preserve temporal alignment.
+- **Walk-Forward Engine:** Modular setup designed to retrain models dynamically across shifting time horizons.
+
+---
+
+## 📐 Mathematical Definitions
+
+### 1. Relative Strength Index (RSI)
+$$\text{RS} = \frac{\text{SMA}(\text{Gain}, N)}{\text{SMA}(\text{Loss}, N)}$$
+$$\text{RSI} = 100 - \left( \frac{100}{1 + \text{RS}} \right)$$
 
 ### 2. Bollinger Bands %B
-Misura la posizione del prezzo di chiusura rispetto alle bande di Bollinger:
-$$\%B = \frac{\text{Prezzo} - \text{Banda Inferiore}}{\text{Banda Superiore} - \text{Banda Inferiore}}$$
+$$\%B = \frac{\text{Close} - \text{Lower Band}}{\text{Upper Band} - \text{Lower Band}}$$
 
 ---
 
-## 💻 Installazione e Requisiti
+## 💻 Setup & Installation
 
-Assicurati di avere Python 3.9+ installato. Clona il repository e installa le dipendenze:
+Ensure you have Python 3.9+ installed.
 
 ```bash
-# Clona il repository
-git clone [https://github.com/tuo-username/ML-WalkForward.git](https://github.com/tuo-username/ML-WalkForward.git)
-cd ML-WalkForward
+# Clone the repository
+git clone [https://github.com/your-username/ML-WalkForward.git](https://github.com/your-username/ML-WalkForward.git)
+cd FinML-WalkForward
 
-# Crea e attiva l'ambiente virtuale
+# Set up virtual environment
 python -m venv venv
-source venv/bin/activate  # Su Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Installa i pacchetti richiesti
+# Install required packages
 pip install pandas numpy scikit-learn xgboost
